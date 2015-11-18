@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/default/main.xhtml">
+    <ui:define name="content">
+        <h:dataTable styleClass="table table-striped" value="#{userController.employeesManager}" var="manager" >
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Username" />
+                </f:facet>
+                <h:outputText value="#{manager.userName}" />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="First name" />
+                </f:facet>
+                <h:outputText value="#{manager.firstName}"  />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Last name" />
+                </f:facet>
+                <h:outputText value="#{manager.lastName}"  />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="E-mail" />
+                </f:facet>
+                <h:outputText value="#{manager.email}"  />
+            </h:column>
+            <c:if test="#{userController.employeesManager.rowCount == 0}">
+                <h:panelGrid columns="4">
+                    <h:outputText value="Empty" />
+                </h:panelGrid>
+            </c:if>
+        </h:dataTable>
+    </ui:define>
+</ui:composition>
+
+</html>
+

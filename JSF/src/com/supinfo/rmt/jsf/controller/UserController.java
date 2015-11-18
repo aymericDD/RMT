@@ -11,6 +11,8 @@ import javax.ejb.EJB;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.faces.model.DataModel;
+import javax.faces.model.ListDataModel;
 import java.io.IOException;
 import java.util.Date;
 
@@ -18,7 +20,8 @@ import java.util.Date;
 /**
  * Created by Rico on 12/11/15.
  */
-@ManagedBean @SessionScoped
+@ManagedBean(name = "userController")
+@SessionScoped
 public class UserController {
 
     @EJB
@@ -39,6 +42,11 @@ public class UserController {
         this.user = user;
     }
 
+    /**
+     * Action :: create manager and his employee
+     *
+     * @throws IOException
+     */
     public void createManager() throws  IOException {
         Manager manager = new Manager();
         manager.setDate(new java.sql.Date(new Date().getTime()));
@@ -47,10 +55,7 @@ public class UserController {
         manager.setLastName("Last name");
         manager.setPassword("password");
         manager.setUserName("User name");
-        userService.addUser(manager);
-    }
 
-    public void createEmployee() throws  IOException {
         Employee employee = new Employee();
         employee.setDate(new java.sql.Date(new Date().getTime()));
         employee.setEmail("fqdf@fsd.fr");
@@ -58,28 +63,60 @@ public class UserController {
         employee.setLastName("Last name");
         employee.setPassword("password");
         employee.setUserName("Employed");
-        userService.addUser(employee);
+
+
+        manager.addEmployee(employee);
+
+        userService.addUser(manager);
     }
 
+    /**
+     * Action :: login user and redirect
+     *
+     * @throws IOException
+     */
     public void login() throws IOException {
         ExternalContext eC = FacesContext.getCurrentInstance().getExternalContext();
 
         if (!user.getUserName().isEmpty() && !user.getPassword().isEmpty()) {
 
-            this.user = userService.getUserByPassword(user.getUserName(), user.getPassword());
+            Object object = userService.getUserByPassword(user.getUserName(), user.getPassword());
 
-            if (this.user instanceof Employee) {
+            if (object instanceof Employee) {
+                this.user = (Employee)object;
                 this.redirect(eC, "employee_home.xhtml");
-            } else if (this.user instanceof Manager) {
+            } else if (object instanceof Manager) {
+                this.user = (Manager)object;
                 this.redirect(eC, "manager_home.xhtml");
             } else {
+                this.user.setPassword(null);
                 this.redirect(eC, "login.xhtml");
             }
         } else {
+            this.user.setPassword(null);
             this.redirect(eC, "login.xhtml");
         }
     }
 
+    /**
+     * Action  :: return manager's employees
+     *
+     * @return DataModel<Employee> employees
+     */
+    public DataModel<Employee> getEmployeesManager() {
+        if (this.user instanceof Manager) {
+            return new ListDataModel<Employee>(((Manager) this.user).getEmployees());
+        }
+        return null;
+    }
+
+    /**
+     * Redirect to specific view
+     *
+     * @param eC
+     * @param view String
+     * @throws IOException
+     */
     public void redirect(ExternalContext eC, String view) throws IOException {
         eC.redirect(eC.getRequestContextPath() + "/" + view);
     }
