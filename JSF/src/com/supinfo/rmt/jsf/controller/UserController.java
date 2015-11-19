@@ -71,7 +71,7 @@ public class UserController {
     }
 
     /**
-     * Action :: login user and redirect
+     * Action :: Login user and redirect
      *
      * @throws IOException
      */
@@ -84,22 +84,22 @@ public class UserController {
 
             if (object instanceof Employee) {
                 this.user = (Employee)object;
-                this.redirect(eC, "employee_home.xhtml");
+                this.redirect(eC, "employee/employee_home.xhtml");
             } else if (object instanceof Manager) {
                 this.user = (Manager)object;
-                this.redirect(eC, "manager_home.xhtml");
-            } else {
+                this.redirect(eC, "manager/manager_home.xhtml");
+            }else {
                 this.user.setPassword(null);
                 this.redirect(eC, "login.xhtml");
             }
-        } else {
+        }else {
             this.user.setPassword(null);
             this.redirect(eC, "login.xhtml");
         }
     }
 
     /**
-     * Action  :: return manager's employees
+     * Action :: Return manager's employees
      *
      * @return DataModel<Employee> employees
      */
@@ -113,9 +113,9 @@ public class UserController {
     /**
      * Redirect to specific view
      *
-     * @param eC
-     * @param view String
-     * @throws IOException
+     * @param   eC    ExternalContext
+     * @param   view  String
+     * @throws  IOException
      */
     public void redirect(ExternalContext eC, String view) throws IOException {
         eC.redirect(eC.getRequestContextPath() + "/" + view);

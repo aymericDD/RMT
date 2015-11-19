@@ -58,10 +58,11 @@ public class ManagerController {
         employee.setDate(new Date(new java.util.Date().getTime()));
         // Save user into bdd
         ((Manager)this.userController.getUser()).addEmployee(employee);
+        System.out.println(this.userController.getUser());
         managerService.updateManager((Manager)this.userController.getUser());
         // Redirect to list_view
         ExternalContext eC = FacesContext.getCurrentInstance().getExternalContext();
-        this.userController.redirect(eC, "list_employee.xhtml");
+        this.userController.redirect(eC, "employee/list_employee.xhtml");
     }
 
 }
