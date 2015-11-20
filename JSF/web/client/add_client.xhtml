@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/templates/default/main.xhtml">
+    <ui:define name="content">
+        <h:form id="form">
+            <b:container>
+                <div class="form-group">
+                    <div class="input-group">
+                        <b:inputText id="username" value="#{managerController.client.name}" placeholder="Client name" >
+                            <f:validateLength minimum="2" />
+                        </b:inputText>
+                    </div>
+                </div>
+                <b:buttonGroup>
+                    <b:commandButton look="primary" action="#{managerController.addClient}" value="Create employee" icon="user" />
+                </b:buttonGroup>
+            </b:container>
+        </h:form>
+    </ui:define>
+</ui:composition>
+
+</html>

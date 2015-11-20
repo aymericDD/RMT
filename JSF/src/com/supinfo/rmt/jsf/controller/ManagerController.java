@@ -1,5 +1,6 @@
 package com.supinfo.rmt.jsf.controller;
 
+import com.supinfo.rmt.ejb.entity.Client;
 import com.supinfo.rmt.ejb.entity.Employee;
 import com.supinfo.rmt.ejb.entity.Manager;
 import com.supinfo.rmt.ejb.services.ManagerService;
@@ -21,6 +22,8 @@ public class ManagerController {
 
     private Employee employee;
 
+    private Client client;
+
     @EJB
     private ManagerService managerService;
 
@@ -30,6 +33,7 @@ public class ManagerController {
     @PostConstruct
     public void init() {
         this.employee = new Employee();
+        this.client = new Client();
     }
 
     public UserController getUserController() {
@@ -48,6 +52,14 @@ public class ManagerController {
         this.employee = employee;
     }
 
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
     /**
      * Create manager's employee
      *
@@ -58,11 +70,24 @@ public class ManagerController {
         employee.setDate(new Date(new java.util.Date().getTime()));
         // Save user into bdd
         ((Manager)this.userController.getUser()).addEmployee(employee);
-        System.out.println(this.userController.getUser());
-        managerService.updateManager((Manager)this.userController.getUser());
+        this.userController.setUser(managerService.updateManager((Manager)this.userController.getUser()));
         // Redirect to list_view
         ExternalContext eC = FacesContext.getCurrentInstance().getExternalContext();
         this.userController.redirect(eC, "employee/list_employee.xhtml");
+    }
+
+    /**
+     * Create manager's client
+     *
+     * @throws IOException
+     */
+    public void addClient() throws IOException {
+        // Save user into bdd
+        ((Manager)this.userController.getUser()).addClient(this.client);
+        this.userController.setUser(managerService.updateManager((Manager)this.userController.getUser()));
+        // Redirect to list_view
+        ExternalContext eC = FacesContext.getCurrentInstance().getExternalContext();
+        this.userController.redirect(eC, "client/list_client.xhtml");
     }
 
 }

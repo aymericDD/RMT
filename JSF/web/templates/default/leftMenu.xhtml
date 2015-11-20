@@ -16,5 +16,29 @@
             </h:outputLink>
         </li>
     </ul>
+    <ul class="nav nav-sidebar">
+        <li>
+            <h:outputLink value="#{request.contextPath}/client/list_client.xhtml">
+                <h:outputText value="List clients" />
+            </h:outputLink>
+        </li>
+        <li>
+            <h:outputLink value="#{request.contextPath}/client/add_client.xhtml">
+                <h:outputText value="Add client" />
+            </h:outputLink>
+        </li>
+    </ul>
+    <ul class="nav nav-sidebar">
+        <li>
+            <h:outputLink value="#{request.contextPath}/worktime/list_worktimes.xhtml">
+                <h:outputText value="List workTimes" />
+            </h:outputLink>
+        </li>
+        <li>
+            <h:outputLink value="#{request.contextPath}/worktime/add_worktime.xhtml">
+                <h:outputText value="Add workTime" />
+            </h:outputLink>
+        </li>
+    </ul>
 </ui:composition>
 </html>

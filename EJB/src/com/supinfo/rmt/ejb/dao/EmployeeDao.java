@@ -13,4 +13,6 @@ public interface EmployeeDao {
 
     public List<Employee> getAllEmployees();
 
+    public Employee updateEmployee(Employee employee);
+
 }

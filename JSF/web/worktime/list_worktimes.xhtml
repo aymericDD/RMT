@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<ui:composition template="/templates/default/main.xhtml">
+    <ui:define name="content">
+        <h:dataTable styleClass="table table-striped" value="#{employeeController.employeeWorkTime}" var="worktime" >
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Client name" />
+                </f:facet>
+                <h:outputText value="#{worktime.client.name}"  />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Begin date" />
+                </f:facet>
+                <h:outputText value="#{worktime.beginDate}"  />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="End date" />
+                </f:facet>
+                <h:outputText value="#{worktime.endDate}"  />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Remove" />
+                </f:facet>
+                <h:form>
+                    <h:commandLink value="Delete" action="#{employeeController.removeWorkTime(worktime)}" />
+                </h:form>
+            </h:column>
+        </h:dataTable>
+    </ui:define>
+</ui:composition>
+
+</html>
+

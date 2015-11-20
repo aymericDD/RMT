@@ -1,5 +1,6 @@
 package com.supinfo.rmt.jsf.controller;
 
+import com.supinfo.rmt.ejb.entity.Client;
 import com.supinfo.rmt.ejb.entity.Employee;
 import com.supinfo.rmt.ejb.entity.Manager;
 import com.supinfo.rmt.ejb.entity.User;
@@ -63,7 +64,7 @@ public class UserController {
         employee.setLastName("Last name");
         employee.setPassword("password");
         employee.setUserName("Employed");
-
+        employee.setManager(manager);
 
         manager.addEmployee(employee);
 
@@ -106,6 +107,18 @@ public class UserController {
     public DataModel<Employee> getEmployeesManager() {
         if (this.user instanceof Manager) {
             return new ListDataModel<Employee>(((Manager) this.user).getEmployees());
+        }
+        return null;
+    }
+
+    /**
+     * Action :: Return manager's clients
+     *
+     * @return DataModel<Client> clients
+     */
+    public DataModel<Client> getClientsManager() {
+        if (this.user instanceof Manager) {
+            return new ListDataModel<Client>(((Manager) this.user).getClients());
         }
         return null;
     }

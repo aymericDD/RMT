@@ -17,8 +17,8 @@ public class JpaManagerDao implements ManagerDao {
     private EntityManager em;
 
     @Override
-    public void updateManager(Manager manager) {
-        em.merge(manager);
+    public Manager updateManager(Manager manager) {
+        return em.merge(manager);
     }
 
 }

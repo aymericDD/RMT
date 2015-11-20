@@ -21,4 +21,8 @@ public class EmployeeService {
         return employeeDao.getAllEmployees();
     }
 
+    public Employee updateEmployee(Employee employee) {
+        return employeeDao.updateEmployee(employee);
+    }
+
 }

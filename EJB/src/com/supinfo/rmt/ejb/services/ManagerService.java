@@ -1,6 +1,7 @@
 package com.supinfo.rmt.ejb.services;
 
 import com.supinfo.rmt.ejb.dao.ManagerDao;
+import com.supinfo.rmt.ejb.entity.Client;
 import com.supinfo.rmt.ejb.entity.Manager;
 
 import javax.ejb.EJB;
@@ -15,8 +16,8 @@ public class ManagerService {
     @EJB
     private ManagerDao managerDao;
 
-    public void updateManager(Manager manager) {
-        managerDao.updateManager(manager);
+    public Manager updateManager(Manager manager) {
+        return managerDao.updateManager(manager);
     }
 
 }

@@ -12,6 +12,6 @@ import java.util.List;
 @Local
 public interface ManagerDao {
 
-    public void updateManager(Manager manager);
+    public Manager updateManager(Manager manager);
 
 }
